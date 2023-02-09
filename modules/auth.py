@@ -18,25 +18,24 @@ class Auth:
         if not self.__secret:
             raise OSError("Enviroment variable SECRET doesn't exist")
 
-    def __new_access_token(self, _id) -> str:
-
+    def __new_access_token(self, uid) -> str:
         return jwt.encode(
             {
-                "id": _id,
+                "id": uid,
                 "exp": dt.datetime.now()
             },
             self.__secret
         )
 
-    def new_refresh_token(self, _id) -> str:
+    def new_refresh_token(self, uid) -> str:
         refresh_token = jwt.encode(
             {
-                "id": _id
+                "id": uid
             },
             self.__secret
         )
 
-        self.__cursor.execute(INSERT_NEW_REFRESH_TOKEN, [_id, refresh_token])
+        self.__cursor.execute(INSERT_NEW_REFRESH_TOKEN, [uid, refresh_token])
 
         return refresh_token
 
