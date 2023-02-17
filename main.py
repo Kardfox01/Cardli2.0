@@ -13,6 +13,7 @@ from modules.resources import Resources
 app = FastAPI()
 auth = Auth(cursor)
 
+
 RESOURCES_DIR = "resources/"
 R = Resources(RESOURCES_DIR)
 app.mount(
